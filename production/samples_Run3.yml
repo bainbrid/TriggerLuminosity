@@ -1,0 +1,51 @@
+common:
+  data:
+    splitting: 20
+    globaltag: 124X_dataRun3_Prompt_v4
+    lumimask: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_357900_Golden.json
+  mc:
+    splitting: 1
+    globaltag: 124X_mcRun3_2022_realistic_v11
+samples:
+  Run2022CRun2022C_part%d:
+    dataset: /ParkingDoubleElectronLowMass%d/Run2022C-PromptReco-v1/MINIAOD
+    isMC: False
+    parts:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  Run2022Dv1_part%d:
+    dataset: /ParkingDoubleElectronLowMass%d/Run2022D-PromptReco-v1/MINIAOD
+    isMC: False
+    parts:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  Run2022Dv2_part%d:
+    dataset: /ParkingDoubleElectronLowMass%d/Run2022D-PromptReco-v2/MINIAOD
+    isMC: False
+    parts:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  BuToKee:
+    dataset: /BuTOKEE20220826bettersplitting/jodedra-SUMMER22_MINIAOD-d5db235e2a58bcae594a314d29cbde75/USER
+    isMC: True
+    dbs: phys03
+  BuToKJpsi_Toee:
+    dataset: /BuTOjpsiKEE20220831fiftyMbettersplitting/jodedra-SUMMER22_MINIAOD-d5db235e2a58bcae594a314d29cbde75/USER
+    isMC: True
+    dbs: phys03
+  BuToKPsi2S_Toee:
+    dataset: /BuTOpsi2sKEE20220831fiftyMbettersplitting/jodedra-SUMMER22_MINIAOD-d5db235e2a58bcae594a314d29cbde75/USER
+    isMC: True
+    dbs: phys03
