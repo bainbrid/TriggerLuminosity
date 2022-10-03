@@ -1,0 +1,16 @@
+<library file="*.cc" name="bainbridTriggerLuminosityPlugins">
+  <flags EDM_PLUGIN="1"/>
+  <use name="CondFormats/DataRecord"/>
+  <use name="CondFormats/L1TObjects"/>
+  <use name="DataFormats/Common"/>
+  <use name="DataFormats/L1TGlobal"/>
+  <use name="DataFormats/Math"/>
+  <use name="DataFormats/PatCandidates"/>
+  <use name="FWCore/Common"/>
+  <use name="FWCore/Framework"/>
+  <use name="FWCore/MessageLogger"/>
+  <use name="FWCore/ParameterSet"/>
+  <use name="FWCore/Utilities"/>
+  <use name="HLTrigger/HLTcore"/>
+  <use name="L1Trigger/L1TGlobal"/>
+</library>
