@@ -2,6 +2,8 @@
 #define JSON_FILTER_HH
 
 #include <string>
+#include <map>
+#include <vector>
 
 class JsonFilter {
 
