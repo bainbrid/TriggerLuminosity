@@ -26,7 +26,7 @@ class JsonFilter {
   void setJsonGoodRunList(std::string jsonFilePath) { jsonFile_ = jsonFilePath; }
 
   /// Check if Run/LS is a good one
-  bool isGoodRunLS(int run, int lumi, int event=0);
+  bool isGoodRunLS(int run, int lumi);
 
   /// Return JSON file path
   std::string jsonFilePath();
