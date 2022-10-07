@@ -54,7 +54,6 @@ private:
 			    const edm::Handle<pat::PackedTriggerPrescales>&,
 			    const edm::Handle<std::vector<pat::TriggerObjectStandAlone> >&,
 			    const edm::TriggerNames&);
-  //void printJSON(TRG trigger);
   void printJSONs();
   size_t getPathIndex(const std::string& hltPath, const edm::TriggerNames&);
     
@@ -66,11 +65,6 @@ private:
   const edm::EDGetTokenT<edm::TriggerResults> triggerResults_;
   const edm::EDGetTokenT<std::vector<pat::TriggerObjectStandAlone> > triggerObjects_;
   const edm::EDGetTokenT<pat::PackedTriggerPrescales> triggerPrescales_;
-//  l1t::L1TGlobalUtil* fGtUtil;
-//  const edm::EDGetTokenT<GlobalAlgBlkBxCollection> ugtToken_;
-//  const edm::ESGetToken<L1TUtmTriggerMenu, L1TUtmTriggerMenuRcd> l1GtMenuToken_;
-//  unsigned long long cache_id_;
-//  GlobalAlgBlk const* results_;
   JSONS jsons_;
   int verbose_;
   bool onlyLowestUnprescaledHltPath_;
@@ -89,19 +83,7 @@ MiniAODTriggerAnalyzer::MiniAODTriggerAnalyzer(const edm::ParameterSet& iConfig)
   jsons_{},
   verbose_(iConfig.getParameter<int>("Verbose")),
   onlyLowestUnprescaledHltPath_(iConfig.getParameter<bool>("OnlyLowestUnprescaledHltPath"))
-//  hltPrescaleProvider_(iConfig, consumesCollector(), *this),
-//  fGtUtil(nullptr),
-//  ugtToken_(consumes<GlobalAlgBlkBxCollection>(iConfig.getParameter<edm::InputTag>("ugtToken"))),
-//  l1GtMenuToken_(esConsumes<L1TUtmTriggerMenu, L1TUtmTriggerMenuRcd>()),
-//  cache_id_(0),
-//  results_(nullptr),
-{
-//  fGtUtil = new l1t::L1TGlobalUtil(iConfig,
-//				   consumesCollector(),
-//				   *this,
-//				   iConfig.getParameter<edm::InputTag>("ugtToken"),
-//				   iConfig.getParameter<edm::InputTag>("ugtToken"));
-}
+  {;}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -115,7 +97,6 @@ void MiniAODTriggerAnalyzer::beginJob() {}
 //
 void MiniAODTriggerAnalyzer::endJob() {
   std::cout << "[MiniAODTriggerAnalyzer::endJob]" << std::endl;
-  //for ( auto iter : jsons_ ) { printJSON(iter.first); }
   printJSONs();
 }
 
@@ -147,7 +128,6 @@ void MiniAODTriggerAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& de
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//void MiniAODTriggerAnalyzer::printJSON(TRG trigger) {
 void MiniAODTriggerAnalyzer::printJSONs() {
 
   // Init
@@ -161,13 +141,6 @@ void MiniAODTriggerAnalyzer::printJSONs() {
   uint idx1 = 0;
   for ( auto iter : jsons_ ) { 
   
-    //  // Init
-    //  std::string name = "L1_" + trigger.first + "_HLT_" + trigger.second;
-    //  std::ofstream file;
-    //  file.open(name+".json");
-    //  std::stringstream ss;
-    //  ss << name << std::endl;
-    
     // Find JSON map for given L1,HLT combination
     TRG trigger = iter.first;
     auto json = jsons_.find(trigger);
@@ -233,35 +206,11 @@ size_t MiniAODTriggerAnalyzer::getPathIndex(const std::string& hltPath,
 //
 void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
 				     const edm::EventSetup& iSetup) {
-
-  //const edm::Handle<edm::TriggerResults> triggerResultsHandle;
-  //iEvent.getByToken(triggerResults_,triggerResultsHandle);
   
   auto triggerResultsHandle = iEvent.getHandle(triggerResults_);
   auto triggerObjectsHandle = iEvent.getHandle(triggerObjects_);
   auto triggerPrescalesHandle = iEvent.getHandle(triggerPrescales_);
   const edm::TriggerNames& triggerNames = iEvent.triggerNames(*triggerResultsHandle);
-
-//  std::cout << "TriggerNames:" << std::endl;
-//  for ( const auto& name : iEvent.triggerNames(*triggerResultsHandle).triggerNames() ) {
-//    std::cout << "name: " << name << std::endl;
-//  }
-//  std::cout << "END" << std::endl;
-
-  //////
-  
-//  std::cout << "checking paths " << std::endl;
-//  for(auto& hltPath : hltPaths_){
-//    size_t pathIndex = getPathIndex(hltPath,triggerNames);
-//    if(pathIndex>=triggerNames.size()) std::cout <<" path "<<hltPath<<" not found in menu"<<std::endl;
-//    else{
-//      std::cout <<" path index "<<pathIndex << " "<<triggerNames.triggerName(pathIndex)<<std::endl;
-//      if(triggerResultsHandle->accept(pathIndex)) std::cout <<" path "<<hltPath<<" passed"<<std::endl;
-//      else std::cout <<" path "<<hltPath<<" failed"<<std::endl;
-//    }
-//  }
-  
-//////
 
   //printPathsAndObjects(triggerResultsHandle, triggerPrescalesHandle, triggerObjectsHandle, triggerNames);
   
@@ -276,33 +225,8 @@ void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
     } else { hltPathVersioned = triggerNames.triggerName(pathIndex); }
     //std::cout << "HLT path (versioned): " << hltPathVersioned << std::endl;
     
-////    auto const hltPSDouble = hltPrescaleProvider_.prescaleValue<double>(iEvent, iSetup, hltPath);
-////    auto const hltPSFrac = hltPrescaleProvider_.prescaleValue<FractionalPrescale>(iEvent, iSetup, hltPath);
-////    
-////    auto const l1HLTPSDouble = hltPrescaleProvider_.prescaleValues<double>(iEvent, iSetup, hltPath);
-////    auto const l1HLTPSFrac = hltPrescaleProvider_.prescaleValues<FractionalPrescale>(iEvent, iSetup, hltPath);
-////    auto const l1HLTPSDoubleFrac = hltPrescaleProvider_.prescaleValues<double, FractionalPrescale>(iEvent, iSetup, hltPath);
-    
     int prescaleSet = hltPrescaleProvider_.prescaleSet(iEvent, iSetup);
     auto const l1HLTDetailPSDouble = hltPrescaleProvider_.prescaleValuesInDetail<double>(iEvent, iSetup, hltPathVersioned);
-//    auto const l1HLTDetailPSFrac = hltPrescaleProvider_.prescaleValuesInDetail<FractionalPrescale>(iEvent, iSetup, hltPath);
-    
-//    edm::LogPrint log("");
-//    log << "---------Begin Event--------\n";
-//    log << "1) hltDouble " << hltPSDouble << " hltFrac " << hltPSFrac << "\n"
-//	<< "2) l1HLTDouble " << l1HLTPSDouble.first << " " << l1HLTPSDouble.second << "\n"
-//	<< "3) l1HLTFrac " << l1HLTPSFrac.first << " " << l1HLTPSFrac.second << "\n"
-//	<< "4) l1HLTDoubleFrac " << l1HLTPSDoubleFrac.first << " " << l1HLTPSDoubleFrac.second << "\n";
-//    auto printL1HLTDetail = [&log](const std::string& text, const auto& val) {
-//      log << text;
-//      for (const auto& entry : val.first) {
-//	log << entry.first << ":" << entry.second << " ";
-//      }
-//      log << " HLT : " << val.second << "\n";
-//    };
-//    printL1HLTDetail("5) l1HLTDetailDouble ", l1HLTDetailPSDouble);
-//    printL1HLTDetail("6) l1HLTDetailFrac ", l1HLTDetailPSFrac);
-//    log << "---------End Event--------\n\n";
     
     std::string hlt_path = hltPath; // Don't use versioned here
     double hlt_prescale = l1HLTDetailPSDouble.second;
@@ -315,6 +239,7 @@ void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
 	break; // Always find lowest unprescaled L1 seed ...
       }
     }
+
     if (hlt_prescale>0 && l1_prescale>0) {
       if (verbose_>1) {
 	std::cout << "HLT path (prescale): " << hlt_path 
@@ -357,79 +282,8 @@ void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
     }
 
   }
-  
-//  edm::Handle<GlobalAlgBlkBxCollection> ugt;
-//  iEvent.getByToken(ugtToken_, ugt);
-//
-//  unsigned long long id = iSetup.get<L1TUtmTriggerMenuRcd>().cacheIdentifier();
-//  if (id != cache_id_) {
-//    cache_id_ = id;
-//    edm::ESHandle<L1TUtmTriggerMenu> menu;
-//    menu = iSetup.getHandle(l1GtMenuToken_);
-//  }
-//
-//  if (ugt.isValid()) { 
-//    results_ = &ugt->at(0, 0);
-//    std::ostringstream os;
-//    results_->print(os);
-//    std::cout << "GlobalAlgBlk: " << os.str() << std::endl;
-//    
-//  }
-
-//  L1Prescales(iEvent, iSetup, ugtToken_);
-//
-//    for (auto const &keyval : menu->getAlgorithmMap()) {
-//      std::string const &name = keyval.second.getName();
-//      unsigned int index = keyval.second.getIndex();
-//      //std::cerr << fmt::sprintf("bit %4d: %s", index, name) << std::endl;
-//      tree_->SetAlias(name.c_str(), fmt::sprintf("L1uGT.m_algoDecisionInitial[%d]", index).c_str());
-//    }
     
 }
-
-////////////////////////////////////////////////////////////////////////////////
-// Taken from:
-// https://github.com/cms-sw/cmssw/blob/master/HLTrigger/HLTcore/test/hltPrescaleExample_cfg.py
-// https://github.com/cms-sw/cmssw/blob/master/HLTrigger/HLTcore/plugins/HLTPrescaleExample.cc
-// https://github.com/cms-sw/cmssw/blob/master/HLTrigger/HLTcore/interface/HLTPrescaleProvider.h
-// https://github.com/cms-sw/cmssw/blob/master/HLTrigger/HLTcore/src/HLTPrescaleProvider.cc
-//
-
-//////////////////////////////////////////////////////////////////////////////////
-//// L1 information
-//void MiniAODTriggerAnalyzer::L1Prescales(const edm::Event& iEvent, 
-//					 const edm::EventSetup& iSetup,
-//					 const edm::EDGetTokenT<GlobalAlgBlkBxCollection>& ugtToken) {
-//  std::cout << "L1 information:" << std::endl;
-//  edm::Handle<GlobalAlgBlkBxCollection> ugt;
-//  iEvent.getByToken(ugtToken_, ugt);
-//  std::cout << "HERE 1" << std::endl;
-//  if (ugt.isValid()) {  
-//    std::cout << "HERE 2" << std::endl;
-//    fGtUtil->retrieveL1(iEvent, iSetup);//, ugtToken);
-//    std::cout << "HERE 3" << std::endl;
-//    const std::vector<std::pair<std::string, bool> > finalDecisions = fGtUtil->decisionsFinal();
-//    const std::vector<std::pair<std::string, double> >  prescales = fGtUtil->prescales();
-//    for (unsigned int i = 0; i < finalDecisions.size(); ++i) {
-//      std::cout << "HERE 4" << std::endl;
-//      std::string name = (finalDecisions.at(i)).first;
-//      std::cout << "HERE 5" << std::endl;
-//      if (name == "NULL") continue;
-//      std::cout << "  idx: " << i << " name: " << name;
-//      std::cout << "HERE 6" << std::endl;
-//      for (unsigned int it = 0; it < l1Table_.size(); it++){
-//	std::cout << "HERE 7" << std::endl;
-//	if (name.compare(l1Table_[it]) == 0){
-//	  std::cout << "HERE 8" << std::endl;
-//	  std::cout << " decision: " << (finalDecisions.at(i)).second
-//		    << " prescale: " << (prescales.at(i)).second;
-//	}
-//	std::cout << "HERE 9" << std::endl;
-//      }
-//      std::cout << std::endl;
-//    }
-//  }  
-//}
 
 ////////////////////////////////////////////////////////////////////////////////
 //

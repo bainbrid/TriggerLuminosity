@@ -56,8 +56,6 @@ miniAODTriggerAnalyzer = cms.EDAnalyzer(
     bits = cms.InputTag("TriggerResults","","HLT"),
     prescales = cms.InputTag("patTrigger"),
     objects = cms.InputTag("unpackedPatTrigger"),
-#    ugtToken = cms.InputTag("gtStage2Digis"),
-#    stageL1Trigger = cms.uint32(2),
     Verbose = cms.int32(1),
     OnlyLowestUnprescaledHltPath = cms.bool(True),
 )
