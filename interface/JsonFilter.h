@@ -2,7 +2,6 @@
 #define JSON_FILTER_HH
 
 #include <string>
-#include "FWCore/Framework/interface/Event.h"
 
 class JsonFilter {
 
@@ -27,7 +26,7 @@ class JsonFilter {
   void setJsonGoodRunList(std::string jsonFilePath) { jsonFile_ = jsonFilePath; }
 
   /// Check if Run/LS is a good one
-  bool isGoodRunLS(const edm::Event& iEvent);
+  bool isGoodRunLS(int run, int lumi, int event=0);
 
   /// Return JSON file path
   std::string jsonFilePath();

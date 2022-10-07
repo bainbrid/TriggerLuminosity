@@ -72,7 +72,7 @@ void JsonFilterAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
     std::cout << "[JsonFilterAnalyzer::analyze]"
 	      << " The following JSONs identify a valid run/lumi: " << std::endl;
     for ( auto& filter : jsonFilters_ ) {
-      if ( filter.isGoodRunLS(iEvent) ) { std::cout << "  " << filter.jsonFileName() << std::endl; }
+      if ( filter.isGoodRunLS(run,lumi) ) { std::cout << "  " << filter.jsonFileName() << std::endl; }
     }
   }
 }

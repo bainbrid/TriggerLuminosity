@@ -1,6 +1,6 @@
-#include "PhysicsTools/TriggerLuminosity/interface/elements.h"
-#include "PhysicsTools/TriggerLuminosity/interface/reader.h"
-#include "PhysicsTools/TriggerLuminosity/interface/JsonFilter.h"
+#include "../interface/elements.h"
+#include "../interface/reader.h"
+#include "../interface/JsonFilter.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -81,13 +81,9 @@ void JsonFilter::fillRunLSMap() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
-bool JsonFilter::isGoodRunLS(const edm::Event& iEvent) {
+bool JsonFilter::isGoodRunLS(int run, int lumi) {
 
   if (jsonFile_ == "") return true;
-  
-  int run = iEvent.id().run();
-  int lumi = iEvent.luminosityBlock();
-  //auto event = iEvent.id().event();
 
   runsLSSegmentsMap::const_iterator thisRun=goodRunLS.find(run);
   if (thisRun == goodRunLS.end()) {
