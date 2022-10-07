@@ -1,5 +1,6 @@
 <library file="*.cc" name="bainbridTriggerLuminosityPlugins">
   <flags EDM_PLUGIN="1"/>
+  <use name="bainbrid/TriggerLuminosity"/>
   <use name="CondFormats/DataRecord"/>
   <use name="CondFormats/L1TObjects"/>
   <use name="DataFormats/Common"/>
