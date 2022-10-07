@@ -1,6 +1,6 @@
-<library file="*.cc" name="bainbridTriggerLuminosityPlugins">
+<library file="*.cc" name="PhysicsToolsTriggerLuminosityPlugins">
   <flags EDM_PLUGIN="1"/>
-  <use name="bainbrid/TriggerLuminosity"/>
+  <use name="PhysicsTools/TriggerLuminosity"/>
   <use name="CondFormats/DataRecord"/>
   <use name="CondFormats/L1TObjects"/>
   <use name="DataFormats/Common"/>

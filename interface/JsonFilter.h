@@ -1,5 +1,5 @@
-#ifndef VECBOS_JSON_FILTER_HH
-#define VECBOS_JSON_FILTER_HH
+#ifndef JSON_FILTER_HH
+#define JSON_FILTER_HH
 
 #include <string>
 #include "FWCore/Framework/interface/Event.h"

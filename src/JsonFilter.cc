@@ -1,6 +1,6 @@
-#include "bainbrid/TriggerLuminosity/interface/elements.h"
-#include "bainbrid/TriggerLuminosity/interface/reader.h"
-#include "bainbrid/TriggerLuminosity/interface/JsonFilter.h"
+#include "PhysicsTools/TriggerLuminosity/interface/elements.h"
+#include "PhysicsTools/TriggerLuminosity/interface/reader.h"
+#include "PhysicsTools/TriggerLuminosity/interface/JsonFilter.h"
 #include <fstream>
 #include <iostream>
 #include <string>

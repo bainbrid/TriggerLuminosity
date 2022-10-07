@@ -22,8 +22,8 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(False))
 process.source.skipEvents=cms.untracked.uint32(0)
 
-process.load("bainbrid.TriggerLuminosity.JsonFilterAnalyzer_cff")
-process.load("bainbrid.TriggerLuminosity.MiniAODTriggerAnalyzer_cff")
+process.load("PhysicsTools.TriggerLuminosity.JsonFilterAnalyzer_cff")
+process.load("PhysicsTools.TriggerLuminosity.MiniAODTriggerAnalyzer_cff")
 process.p = cms.Path(
     process.miniAODTriggerSequence+
     process.jsonFilterSequence
