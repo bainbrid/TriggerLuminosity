@@ -48,7 +48,7 @@ print()
 for idx,(trigger,lumiList) in enumerate(dct.items()): 
     print(trigger+":")
     print(str(lumiList))
-    with open('jsons/{:s}.json'.format(trigger), 'w') as output: json.dump(lumiList.getCompactList(), output)
+    with open('jsons/current/{:s}.json'.format(trigger), 'w') as output: json.dump(lumiList.getCompactList(), output)
 
 
 # Build list of trigger paths
