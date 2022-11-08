@@ -2,12 +2,12 @@ common:
   data:
     splitting: 20
     globaltag: 124X_dataRun3_Prompt_v4
-    lumimask: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_357900_Golden.json
+    lumimask: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_361091_Golden.json
   mc:
     splitting: 1
     globaltag: 124X_mcRun3_2022_realistic_v11
 samples:
-  Run2022CRun2022C_part%d:
+  Run2022C_part%d:
     dataset: /ParkingDoubleElectronLowMass%d/Run2022C-PromptReco-v1/MINIAOD
     isMC: False
     parts:
@@ -29,6 +29,26 @@ samples:
       - 5
   Run2022Dv2_part%d:
     dataset: /ParkingDoubleElectronLowMass%d/Run2022D-PromptReco-v2/MINIAOD
+    isMC: False
+    parts:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  Run2022E_part%d:
+    dataset: /ParkingDoubleElectronLowMass%d/Run2022E-PromptReco-v1/MINIAOD
+    isMC: False
+    parts:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+  Run2022F_part%d:
+    dataset: /ParkingDoubleElectronLowMass%d/Run2022F-PromptReco-v1/MINIAOD
     isMC: False
     parts:
       - 0
