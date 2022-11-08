@@ -68,6 +68,7 @@ private:
   JSONS jsons_;
   int verbose_;
   bool onlyLowestUnprescaledHltPath_;
+  int moduloPrescale_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +83,8 @@ MiniAODTriggerAnalyzer::MiniAODTriggerAnalyzer(const edm::ParameterSet& iConfig)
   triggerPrescales_(consumes<pat::PackedTriggerPrescales>(iConfig.getParameter<edm::InputTag>("prescales"))),
   jsons_{},
   verbose_(iConfig.getParameter<int>("Verbose")),
-  onlyLowestUnprescaledHltPath_(iConfig.getParameter<bool>("OnlyLowestUnprescaledHltPath"))
+  onlyLowestUnprescaledHltPath_(iConfig.getParameter<bool>("OnlyLowestUnprescaledHltPath")),
+  moduloPrescale_(iConfig.getParameter<int>("ModuloPrescale"))
   {;}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -206,7 +208,10 @@ size_t MiniAODTriggerAnalyzer::getPathIndex(const std::string& hltPath,
 //
 void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
 				     const edm::EventSetup& iSetup) {
-  
+
+  auto event = iEvent.id().event();
+  if ( moduloPrescale_ > 1 && event % moduloPrescale_ != 0 ) return;
+
   auto triggerResultsHandle = iEvent.getHandle(triggerResults_);
   auto triggerObjectsHandle = iEvent.getHandle(triggerObjects_);
   auto triggerPrescalesHandle = iEvent.getHandle(triggerPrescales_);

@@ -58,6 +58,7 @@ miniAODTriggerAnalyzer = cms.EDAnalyzer(
     objects = cms.InputTag("unpackedPatTrigger"),
     Verbose = cms.int32(1),
     OnlyLowestUnprescaledHltPath = cms.bool(True),
+    ModuloPrescale = cms.int32(100), # Only analyse 1/N events (for speed) if trigger rate permits
 )
 
 miniAODTriggerSequence = cms.Sequence(
