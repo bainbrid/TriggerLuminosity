@@ -15,17 +15,16 @@ print("Retrieving mergeJSON.py from",path)
 sys.path.append(path)
 from mergeJSON import *
 
-#input='/eos/cms/store/group/phys_bphys/DiElectronX/test/trigger/TriggerLuminosity_2022Sep29/ParkingDoubleElectronLowMass0/crab_Run2022Dv1_part0/220930_093243/0000/'
-#files = [ input+"output_{:.0f}.json".format(x) for x in range(1,17) ]
+base='/eos/cms/store/group/phys_bphys/DiElectronX/test/trigger/'
+inputs = []
+inputs.append(base+'TriggerLuminosity_2022Sep30/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/220930_*/000*/output_*.json') # Era C + Dv2
+inputs.append(base+'TriggerLuminosity_2022Oct02/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/221002_*/000*/output_*.json') # Era Dv1
+inputs.append(base+'TriggerLuminosity_2022Nov07/ParkingDoubleElectronLowMass*/crab_Run2022E_part*/221107_*/000*/output_*.json') # Era E
+inputs.append(base+'TriggerLuminosity_2022Nov08/ParkingDoubleElectronLowMass*/crab_Run2022F_part*/221108_*/000*/output_*.json') # Era F
 
-input='/eos/cms/store/group/phys_bphys/DiElectronX/test/trigger/'
-#input+='TriggerLuminosity_2022Sep30/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/220930_*/000*/output_*.json'
-#input+='TriggerLuminosity_2022Oct02/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/221002_*/000*/output_*.json'
-input+='TriggerLuminosity_2022Nov07/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/221107_*/000*/output_*.json'
-
-files = [ name for name in glob.glob(input)]
-#for filename in files: print(file)
+files = [ name for input in inputs for name in glob.glob(input) ]
 print("len(files)",len(files))
+#for filename in files: print(file)
 
 dct = {}
 for ifilename,filename in enumerate(files):
@@ -48,8 +47,11 @@ print()
 for idx,(trigger,lumiList) in enumerate(dct.items()): 
     print(trigger+":")
     print(str(lumiList))
-    with open('jsons/current/{:s}.json'.format(trigger), 'w') as output: json.dump(lumiList.getCompactList(), output)
+    with open('jsons/current/{:s}_Excl.json'.format(trigger), 'w') as output: json.dump(lumiList.getCompactList(), output)
 
+################################################################################
+################################################################################
+################################################################################
 
 # Build list of trigger paths
 #triggers = []
