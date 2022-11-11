@@ -15,10 +15,14 @@ print("Retrieving mergeJSON.py from",path)
 sys.path.append(path)
 from mergeJSON import *
 
+#inputs.append(base+'TriggerLuminosity_2022Sep30/ParkingDoubleElectronLowMass*/crab_Run2022C*_part*/220930_*/000*/output_*.json') # Era C
+#inputs.append(base+'TriggerLuminosity_2022Sep30/ParkingDoubleElectronLowMass*/crab_Run2022Dv2_part*/220930_*/000*/output_*.json') # Era Dv2
+
 base='/eos/cms/store/group/phys_bphys/DiElectronX/test/trigger/'
 inputs = []
-inputs.append(base+'TriggerLuminosity_2022Sep30/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/220930_*/000*/output_*.json') # Era C + Dv2
-inputs.append(base+'TriggerLuminosity_2022Oct02/ParkingDoubleElectronLowMass*/crab_Run2022*_part*/221002_*/000*/output_*.json') # Era Dv1
+inputs.append(base+'TriggerLuminosity_2022Nov11/ParkingDoubleElectronLowMass*/crab_Run2022C_part*/221111_*/000*/output_*.json') # Era C
+inputs.append(base+'TriggerLuminosity_2022Oct02/ParkingDoubleElectronLowMass*/crab_Run2022Dv1_part*/221002_*/000*/output_*.json') # Era Dv1
+inputs.append(base+'TriggerLuminosity_2022Nov11/ParkingDoubleElectronLowMass*/crab_Run2022Dv2_part*/221111_*/000*/output_*.json') # Era Dv2
 inputs.append(base+'TriggerLuminosity_2022Nov07/ParkingDoubleElectronLowMass*/crab_Run2022E_part*/221107_*/000*/output_*.json') # Era E
 inputs.append(base+'TriggerLuminosity_2022Nov08/ParkingDoubleElectronLowMass*/crab_Run2022F_part*/221108_*/000*/output_*.json') # Era F
 

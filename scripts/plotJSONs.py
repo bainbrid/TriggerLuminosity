@@ -45,8 +45,8 @@ runs = sorted(list(set(runs)))
 lumis = sorted(list(set(lumis)))
 print("L1_thresholds:",L1_thresholds)
 print("HLT_thresholds:",HLT_thresholds)
-print("runs:",runs)
-print("lumis:",lumis)
+#print("runs:",runs)
+#print("lumis:",lumis)
 #print("data:",data)
 
 # Create histogram
