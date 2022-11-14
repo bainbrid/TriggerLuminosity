@@ -120,10 +120,10 @@ std::string JsonFilter::jsonFilePath() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
-std::string JsonFilter::jsonFileName() {
-  size_t slash = jsonFile_.find_last_of('/');
-  size_t dot = jsonFile_.find_last_of('.');
-  if (slash != string::npos && dot != string::npos ) { return jsonFile_.substr(slash+1,dot-slash-1); }
-  else if (dot != string::npos )                     { return jsonFile_.substr(0,dot-1); }
-  else                                               { return jsonFile_; }
+std::string JsonFilter::jsonFileName(const std::string& path) {
+  size_t slash = path.find_last_of('/');
+  size_t dot = path.find_last_of('.');
+  if (slash != string::npos && dot != string::npos ) { return path.substr(slash+1,dot-slash-1); }
+  else if (dot != string::npos )                     { return path.substr(0,dot-1); }
+  else                                               { return path; }
 }

@@ -41,13 +41,16 @@ JsonFilterAnalyzer::JsonFilterAnalyzer(const edm::ParameterSet& iConfig)
 {
   for ( auto const& file : jsonFiles_ ) {
     if (verbose_>0) { 
-      std::cout << "[JsonFilterAnalyzer::JsonFilterAnalyzer] Parsing JSON file path: " << file << std::endl;
+      std::cout << "[JsonFilterAnalyzer::JsonFilterAnalyzer]"
+		<< " Parsing JSON file path: " << file << std::endl;
     }
     JsonFilter filter(file,verbose_);
     filter.fillRunLSMap();
     jsonFilters_.push_back(filter);
     if (verbose_>0) { 
-      std::cout << "[JsonFilterAnalyzer::JsonFilterAnalyzer] Parsed JSON file name: " << filter.jsonFileName() << std::endl;
+      std::cout << "[JsonFilterAnalyzer::JsonFilterAnalyzer]"
+		<< " Parsed JSON file name: " 
+		<< JsonFilter::jsonFileName( filter.jsonFilePath() ) << std::endl;
     }
   }
 }
@@ -72,7 +75,9 @@ void JsonFilterAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup
     std::cout << "[JsonFilterAnalyzer::analyze]"
 	      << " The following JSONs identify a valid run/lumi: " << std::endl;
     for ( auto& filter : jsonFilters_ ) {
-      if ( filter.isGoodRunLS(run,lumi) ) { std::cout << "  " << filter.jsonFileName() << std::endl; }
+      if ( filter.isGoodRunLS(run,lumi) ) { 
+	std::cout << "  " << JsonFilter::jsonFileName( filter.jsonFilePath() ) << std::endl;
+      }
     }
   }
 }

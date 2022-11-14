@@ -23,6 +23,8 @@
 #include <sstream>
 #include <iostream>
 
+//#define CMSSW_10_2_X
+
 typedef std::vector<int> LS;
 typedef std::map<int,LS> JSON;
 typedef std::pair<std::string,std::string> TRG;
@@ -212,9 +214,18 @@ void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
   auto event = iEvent.id().event();
   if ( moduloPrescale_ > 1 && event % moduloPrescale_ != 0 ) return;
 
+#ifndef CMSSW_10_2_X
   auto triggerResultsHandle = iEvent.getHandle(triggerResults_);
   auto triggerObjectsHandle = iEvent.getHandle(triggerObjects_);
   auto triggerPrescalesHandle = iEvent.getHandle(triggerPrescales_);
+#else
+  edm::Handle<edm::TriggerResults> triggerResultsHandle;
+  iEvent.getByToken(triggerResults_, triggerResultsHandle);
+  edm::Handle<std::vector<pat::TriggerObjectStandAlone> > triggerObjectsHandle;
+  iEvent.getByToken(triggerObjects_, triggerObjectsHandle);
+  edm::Handle<pat::PackedTriggerPrescales > triggerPrescalesHandle;
+  iEvent.getByToken(triggerPrescales_, triggerPrescalesHandle);
+#endif
   const edm::TriggerNames& triggerNames = iEvent.triggerNames(*triggerResultsHandle);
 
   //printPathsAndObjects(triggerResultsHandle, triggerPrescalesHandle, triggerObjectsHandle, triggerNames);
@@ -231,7 +242,11 @@ void MiniAODTriggerAnalyzer::analyze(const edm::Event& iEvent,
     //std::cout << "HLT path (versioned): " << hltPathVersioned << std::endl;
     
     int prescaleSet = hltPrescaleProvider_.prescaleSet(iEvent, iSetup);
+#ifndef CMSSW_10_2_X
     auto const l1HLTDetailPSDouble = hltPrescaleProvider_.prescaleValuesInDetail<double>(iEvent, iSetup, hltPathVersioned);
+#else
+    auto const l1HLTDetailPSDouble = hltPrescaleProvider_.prescaleValuesInDetail(iEvent, iSetup, hltPathVersioned);
+#endif
     
     std::string hlt_path = hltPath; // Don't use versioned here
     double hlt_prescale = l1HLTDetailPSDouble.second;

@@ -5,6 +5,11 @@
 #include <map>
 #include <vector>
 
+////////////////////////////////////////////////////////////////////////////////
+// Class and associated code taken from or based on:
+// https://github.com/VecbosApp/VecbosApp2/tree/master/JSON
+////////////////////////////////////////////////////////////////////////////////
+
 class JsonFilter {
 
  public:
@@ -34,7 +39,7 @@ class JsonFilter {
   std::string jsonFilePath();
 
   /// Return JSON file name
-  std::string jsonFileName();
+  static std::string jsonFileName(const std::string&);
     
  private:
 
